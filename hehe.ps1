@@ -1,6 +1,4 @@
-Function Set-WallPaper($value)
-
-{
+Function Set-WallPaper($value){
 
  Set-ItemProperty -path 'HKCU:\Control Panel\Desktop\' -name wallpaper -value $value
 
