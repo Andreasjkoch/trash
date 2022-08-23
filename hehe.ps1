@@ -1,8 +1,8 @@
+using System; 
+using System.Runtime.InteropServices;
 Function Set-WallPaper($Image) {
   
 Add-Type -TypeDefinition @" 
-using System; 
-using System.Runtime.InteropServices;
   
 public class Params
 { 
