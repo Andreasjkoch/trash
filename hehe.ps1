@@ -24,5 +24,6 @@ public class Params
 }
  
 $url = "https://raw.githubusercontent.com/Andreasjkoch/trash/master/ost-6.jpg";Invoke-WebRequest $url -OutFile $env:USERPROFILE\downloads\ost.jpg
+Start-Sleep -s 1
 
 Set-WallPaper -Image “$env:USERPROFILE\downloads\ost.jpg”
