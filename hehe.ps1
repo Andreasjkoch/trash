@@ -1,17 +1,4 @@
 Function Set-WallPaper($Image) {
-<#
- 
-    .SYNOPSIS
-    Applies a specified wallpaper to the current user's desktop
-    
-    .PARAMETER Image
-    Provide the exact path to the image
-  
-    .EXAMPLE
-    Set-WallPaper -Image "C:\Wallpaper\Default.jpg"
-  
-#>
-  
 Add-Type -TypeDefinition @" 
 using System; 
 using System.Runtime.InteropServices;
