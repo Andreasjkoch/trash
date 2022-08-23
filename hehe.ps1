@@ -1,4 +1,4 @@
-Function Set-WallPaper($Value)
+Function Set-WallPaper($value)
 
 {
 
