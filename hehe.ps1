@@ -1,28 +1,21 @@
-Function Set-WallPaper($Image) {
-Add-Type -TypeDefinition @" 
-using System; 
-using System.Runtime.InteropServices;
-  
-public class Params
-{ 
-    [DllImport("User32.dll",CharSet=CharSet.Unicode)] 
-    public static extern int SystemParametersInfo (Int32 uAction, 
-                                                   Int32 uParam, 
-                                                   String lpvParam, 
-                                                   Int32 fuWinIni);
-}
-"@ 
-  
-    $SPI_SETDESKWALLPAPER = 0x0014
-    $UpdateIniFile = 0x01
-    $SendChangeEvent = 0x02
-  
-    $fWinIni = $UpdateIniFile -bor $SendChangeEvent
-  
-    $ret = [Params]::SystemParametersInfo($SPI_SETDESKWALLPAPER, 0, $Image, $fWinIni)
- 
-}
- 
-$url = "https://raw.githubusercontent.com/Andreasjkoch/trash/master/ost-6.jpg;Invoke-WebRequest $url -OutFile $env:USERPROFILE\downloads\ost.jpg
+$url = "https://raw.githubusercontent.com/Andreasjkoch/trash/master/ost-6.jpg";Invoke-WebRequest $url -OutFile $env:USERPROFILE\downloads\ost.jpg
 
-Set-WallPaper -Image “$env:USERPROFILE\downloads\ost.jpg”
+$setwallpapersrc = @"
+using System.Runtime.InteropServices;
+
+public class Wallpaper
+{
+  public const int SetDesktopWallpaper = 20;
+  public const int UpdateIniFile = 0x01;
+  public const int SendWinIniChange = 0x02;
+  [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+  private static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+  public static void SetWallpaper(string path)
+  {
+    SystemParametersInfo(SetDesktopWallpaper, 0, path, UpdateIniFile | SendWinIniChange);
+  }
+}
+"@
+Add-Type -TypeDefinition $setwallpapersrc
+
+[Wallpaper]::SetWallpaper("$env:USERPROFILE\downloads\ost.jpg")
